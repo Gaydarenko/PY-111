@@ -15,7 +15,7 @@ def enqueue(elem: Any) -> None:
     # print(elem)
     global deque_list
 
-    deque_list.append()
+    deque_list.append(elem)
     return None
 
 
@@ -27,7 +27,7 @@ def dequeue() -> Any:
     """
     global deque_list
 
-    return deque_list[0] if deque_list else None
+    return deque_list.pop(0) if deque_list else None
 
 
 def peek(ind: int = 0) -> Any:
