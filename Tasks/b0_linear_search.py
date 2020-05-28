@@ -13,10 +13,6 @@ def min_search(arr: Sequence) -> int:
     """
     print(arr)
 
-    # ver.1
-    # return arr.index(min(arr))
-
-    # ver.2
     ind = 0
     r = arr[ind]
     for i in range(1, len(arr)):
