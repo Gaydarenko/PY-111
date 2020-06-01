@@ -8,6 +8,7 @@ from typing import Any
 COUNT_PRIORiTY = 11
 priority_deque = {p: [] for p in range(COUNT_PRIORiTY)}
 
+
 def enqueue(elem: Any, priority: int = 0) -> None:
     """
     Operation that add element to the end of the queue
@@ -45,12 +46,11 @@ def peek(ind: int = 0, priority: int = 0) -> Any:
     global priority_deque
 
     i = 0
-    for p in priority_deque.values():
-        if i + len(p) < ind:
-            i += len(p)
-        else:
-            return p[ind - i]
-
+    if ind > len(priority_deque[priority]):
+        return None
+    for i in range(len(priority_deque[priority])):
+        if i == ind:
+            return priority_deque[priority][i]
 
 
 def clear() -> None:
