@@ -7,9 +7,18 @@ def calculate_paths(shape: (int, int), point: (int, int)) -> int:
     :return: count of paths from (1, 1) to (point[0], point[1]) (numerating from 0, so (0, 0) - left bottom tile)
     """
     print(shape, point)
-
-    return 0
+    steps = [(0, 0), ]
+    for st in steps:
+        if st[0] + 1 < shape[0] and st[1] + 2 < shape[1]:
+            steps.append((st[0] + 1, st[1] + 2))
+        if st[0] + 2 < shape[0] and st[1] + 1 < shape[1]:
+            steps.append((st[0] + 2, st[1] + 1))
+        if st[0] - 1 >= 0 and st[1] + 2 < shape[1]:
+            steps.append((st[0] - 1, st[1] + 2))
+        if st[1] - 1 >= 0 and st[1] + 1 < shape[1]:
+            steps.append((st[0] + 2, st[1] - 1))
+    return steps
 
 
 if __name__ == '__main__':
-    calculate_paths((8, 8), (7, 7))
+    print(calculate_paths((8, 8), (7, 7)))
