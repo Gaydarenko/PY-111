@@ -11,3 +11,6 @@ def dijkstra_algo(g: nx.DiGraph, starting_node: Hashable) -> Mapping[Hashable, U
     """
     print(g, starting_node)
     return dict()
+
+
+if __name__ == '__main__':
