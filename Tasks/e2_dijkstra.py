@@ -10,30 +10,23 @@ def dijkstra_algo(g: nx.DiGraph, starting_node: Hashable) -> Mapping[Hashable, U
     :return: dict like {'node1': 0, 'node2': 10, '3': 33, ...} with path costs, where nodes are nodes from g
     """
     print(g.adj, starting_node)
-    hist = {}
+    hist = []
     res = {}
-    queue = [starting_node, ]
-    parent_cost = {starting_node: 0}
+    for x in g.nodes:
+        res[x] = ('', float('inf'))
+    res[starting_node] = ('', 0)
+    queue = [(starting_node, 0), ]
     while queue:
-        if not hist.get(queue[0], None):
-            hist[queue[0]] = 1
-            for node in g.nodes:
-                res[node] = {queue[0]: }
-            parent_cost.pop(queue[0])
-            queue.pop(0)
-
-    return None
-
-
-# if __name__ == '__main__':
-#     c = nx.DiGraph
-#     a = {'A': {'B': {'weight': 1}}, 'B': {'C': {'weight': 3}, 'E': {'weight': 8}, 'D': {'weight': 2}}, 'C': {'E': {'weight': 4}, 'D': {'weight': 1}}, 'D': {'E': {'weight': 2}, 'A': {'weight': 2}}, 'E': {'F': {'weight': 3}}, 'F': {}, 'G': {'D': {'weight': 1}}}
-#     b = 'A'
-#     n = a.keys()
-#     c.add_nodes_from(n)
-#     print(n)
-#     for x in a:
-#         c.add_node(x)
-#         print(f'node1 - {x}, node2 {a[x]}')
-#         # c.add_edge(x, a[x])
-#     print(dijkstra_algo(c, b))
+        target = queue.pop(0)
+        if target[0] in hist:
+            continue
+        hist.append(target)
+        for node in g.neighbors(target[0]):
+            parent_cost = (target[0], nx.get_edge_attributes(g, 'weight')[(target[0], node)])
+            old = res[node]
+            if parent_cost[1] + target[1] < old[1]:
+                res[node] = (parent_cost[0], parent_cost[1] + target[1])
+                queue.append((node, parent_cost[1] + target[1]))
+    for x in res:
+        res[x] = res[x][1]
+    return res
