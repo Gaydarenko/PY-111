@@ -17,9 +17,11 @@ def sort(container: List[int]) -> List[int]:
     res = []
     while left or right:
         if not left:
-            res.append(right.pop(0))
+            res.extend(right)
+            right = []
         elif not right:
-            res.append(left.pop(0))
+            res.extend(left)
+            left = []
         elif left[0] <= right[0]:
             res.append(left.pop(0))
         else:
