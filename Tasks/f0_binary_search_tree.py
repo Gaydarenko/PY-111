@@ -4,7 +4,7 @@ or with dicts (smth like {'key': 0, value: 123, 'left': {...}, 'right':{...}})
 """
 
 from typing import Any, Optional, Tuple
-# import networkx as nx
+import networkx as nx
 
 
 def insert(key: int, value: Any) -> None:
@@ -16,6 +16,9 @@ def insert(key: int, value: Any) -> None:
     :return: None
     """
     print(key, value)
+    graph = nx.Graph()
+    if not graph.nodes:
+        graph.add_node(key)
     return None
 
 
