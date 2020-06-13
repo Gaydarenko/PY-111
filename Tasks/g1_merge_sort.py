@@ -11,5 +11,17 @@ def sort(container: List[int]) -> List[int]:
     if len(container) < 2:
         return container
     else:
-        small, big = container[]
-    return container
+        middle = len(container) // 2
+        left = sort(container[:middle])
+        right = sort(container[middle:])
+    res = []
+    while left or right:
+        if not left:
+            res.append(right.pop(0))
+        elif not right:
+            res.append(left.pop(0))
+        elif left[0] <= right[0]:
+            res.append(left.pop(0))
+        else:
+            res.append((right.pop(0)))
+    return res
