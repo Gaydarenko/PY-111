@@ -7,13 +7,6 @@ from typing import Any, Optional, Tuple
 import networkx as nx
 import json
 
-NODE = {
-    'key': None,
-    'value': None,
-    'left': None,
-    'right': None
-}
-
 tree = {}
 
 
@@ -25,46 +18,26 @@ def insert(key: int, value: Any) -> None:
     :param value: value associated with key
     :return: None
     """
-    # global tree
+    global tree
     print(key, value)
     # graph = nx.Graph()
     # if not graph.nodes:
     #     graph.add_node(key)
-    # global tree
 
-    # if not tree:
-    #     tree['key'] = key
-    #     tree['value'] = value
-    #     # tree['left'] = None
-    #     # tree['right'] = None
-    # else:
-    #     if key > tree[key]:
-    #         if
-    #         tree['right'] = insert(key, value)
-    #     elif key < tree[key]:
-    #         tree['left'] = insert(key, value)
-    # # print(tree)
-    # return tree
-    global tree
-
-    def _ins(node):
-        if node['key'] < key:
-            if node['right'] is None:
-                node['right'] = NODE.copy()
-                node['right'].update(key=key, value=value)
+    def my_insert(my_tree):
+        if not my_tree:
+            return my_tree.update({'key': key, 'value': value})
+        elif key > my_tree['key']:
+            if my_tree.get('right') is None:
+                return my_tree.update({'right': {'key': key, 'value': value}})
             else:
-                _ins(node['right'])
-        elif node['key'] > key:
-            if node['left'] is None:
-                node['left'] = NODE.copy()
-                node['left'].update(key=key, value=value)
+                return my_insert(my_tree['right'])
+        elif key < my_tree['key']:
+            if my_tree.get('left') is None:
+                return my_tree.update({'left': {'key': key, 'value': value}})
             else:
-                _ins(node['left'])
-    if not tree:
-        tree = NODE.copy()
-        tree.update(key=key, value=value)
-    else:
-        _ins(tree)
+                return my_insert(my_tree['left'])
+    return my_insert(tree)
 
 
 def remove(key: int) -> Optional[Tuple[int, Any]]:
@@ -88,20 +61,21 @@ def find(key: int) -> Optional[Any]:
     print(key)
     global tree
 
-    # if not tree
-    # massive = tree
     def my_find(massive):
         if massive is None:
-            return 'None !!!!'
+            raise KeyError
         if massive['key'] == key:
             return massive['value']
         elif key > massive['key']:
-            return my_find(massive['right'])
+            if massive.get('right') is None:
+                raise KeyError
+            else:
+                return my_find(massive['right'])
         elif key < massive['key']:
-            return my_find(massive['left'])
-        # else:
-        #     print(f'key = {key}')
-        #     return None
+            if massive.get('left') is None:
+                raise KeyError
+            else:
+                return my_find(massive['left'])
     return my_find(tree)
 
 
