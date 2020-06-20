@@ -48,13 +48,13 @@ def insert(key: int, value: Any) -> None:
     global tree
 
     def _ins(node):
-        if  node['key'] < key:
+        if node['key'] < key:
             if node['right'] is None:
                 node['right'] = NODE.copy()
                 node['right'].update(key=key, value=value)
             else:
                 _ins(node['right'])
-        else:
+        elif node['key'] > key:
             if node['left'] is None:
                 node['left'] = NODE.copy()
                 node['left'].update(key=key, value=value)
@@ -86,7 +86,23 @@ def find(key: int) -> Optional[Any]:
     :return: value associated with the corresponding key
     """
     print(key)
-    return None
+    global tree
+
+    # if not tree
+    # massive = tree
+    def my_find(massive):
+        if massive is None:
+            return 'None !!!!'
+        if massive['key'] == key:
+            return massive['value']
+        elif key > massive['key']:
+            return my_find(massive['right'])
+        elif key < massive['key']:
+            return my_find(massive['left'])
+        # else:
+        #     print(f'key = {key}')
+        #     return None
+    return my_find(tree)
 
 
 def clear() -> None:
@@ -105,4 +121,6 @@ if __name__ == '__main__':
     insert(13, "Devil's sign here")
     insert(13, "Oh no, devil's sign again Oo")
     print(json.dumps(tree, indent='\t'))
-
+    print(find(42))
+    print(find(13))
+    print(find(-999))
