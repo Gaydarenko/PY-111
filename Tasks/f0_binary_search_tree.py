@@ -141,7 +141,7 @@ def clear() -> None:
     :return: None
     """
     global tree
-    tree = {}
+    tree.clear()
     return None
 
 
