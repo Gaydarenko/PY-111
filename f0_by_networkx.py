@@ -30,6 +30,7 @@ def my_bfs(g, start_node):
 
 def check_tree(gr):
     # проверка на то что это неориентированный граф и соотношение кол-ва вершин и ребер
+    # if not isinstance(gr, nx.classes.graph.Graph) or gr.number_of_nodes() - 1 != gr.number_of_edges():
     if type(gr) != nx.classes.graph.Graph or len(gr.nodes) - 1 != len(gr.edges):
         return False
 
@@ -39,6 +40,7 @@ def check_tree(gr):
             return False
 
     # проверка связности поиском в ширину
+    # if set(gr.nodes) != set(nx.bfs_tree(gr, tuple(gr.nodes)[0])):
     if set(gr.nodes) != set(my_bfs(gr, tuple(gr.nodes)[0])):
         return False
 
