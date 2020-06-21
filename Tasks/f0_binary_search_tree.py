@@ -99,7 +99,10 @@ def remove(key: int) -> Optional[Tuple[int, Any]]:
         else:
             find_min_in_right.temp = small_tree.copy()
             return small_tree.clear()
-    my_remove(tree)
+    if tree:
+        my_remove(tree)
+    else:
+        return None
     return my_remove.pair
 
 
@@ -137,6 +140,8 @@ def clear() -> None:
 
     :return: None
     """
+    global tree
+    tree = {}
     return None
 
 
