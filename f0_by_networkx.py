@@ -46,20 +46,6 @@ def check_tree(gr):
 
 
 if __name__ == '__main__':
-    # graph = nx.DiGraph()
-    # graph.add_nodes_from("ABCDEFG")
-    # graph.add_weighted_edges_from([
-    #     ('A', 'B', 1),
-    #     ('B', 'C', 3),
-    #     ('C', 'E', 4),
-    #     ('E', 'F', 3),
-    #     ('B', 'E', 8),
-    #     ('C', 'D', 1),
-    #     ('D', 'E', 2),
-    #     ('B', 'D', 2),
-    #     ('G', 'D', 1),
-    #     ('D', 'A', 2)
-    # ])
     graph = nx.Graph()
     graph.add_nodes_from("ABCDEFGHIJ")
     graph.add_edges_from([
