@@ -60,8 +60,14 @@ def remove(key: int) -> Optional[Tuple[int, Any]]:
 
     def my_remove(my_tree):
         if key > my_tree['key']:
+            if my_tree.get('right') is None:
+                my_remove.pair = None
+                return None
             return my_remove(my_tree['right'])
         elif key < my_tree['key']:
+            if my_tree.get('left') is None:
+                my_remove.pair = None
+                return None
             return my_remove(my_tree['left'])
         else:
             my_remove.pair = tuple(my_tree.values())
@@ -147,6 +153,7 @@ if __name__ == '__main__':
     # print(find(13))
     # print(find(-999))
     print('Function remove start')
+    print(remove(42))
     print(remove(42))
     print('Function remove finish')
     print(json.dumps(tree, indent='\t'))
