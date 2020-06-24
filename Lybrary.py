@@ -77,25 +77,24 @@ def search(title, author, genre):
 
     roster = []
 
-    if len(title) or len(author) or len(genre):
-        with open('catalog.lib', 'r', encoding='utf-8') as file:
-            lines = file.readlines()
+    with open('catalog.lib', 'r', encoding='utf-8') as file:
+        lines = file.readlines()
 
-        for line in lines:
-            line = json.loads(line)     # Нужно не забыть проверить на необходимость!!!
-            target = [title, author, genre]
-            if title == '':
-                target[0] = line[0]
-            if author == '':
-                target[1] = line[1]
-            if genre == '':
-                target[2] = line[2]
+    for line in lines:
+        line = json.loads(line)     # Нужно не забыть проверить на необходимость!!!
+        target = [title, author, genre]
+        if title == '':
+            target[0] = line[0]
+        if author == '':
+            target[1] = line[1]
+        if genre == '':
+            target[2] = line[2]
 
-            if line == target:
-                roster.append(line)
-        return roster
-    else:
-        return
+        if line == target:
+            roster.append(line)
+    if not roster:
+        return None
+    return roster
 
 
 def search_window(title, author, genre):
@@ -149,6 +148,8 @@ def search_window(title, author, genre):
         return None
 
     results = search(title, author, genre)
+    if not results:
+        return mb.showinfo('Упс!!!', 'Такой книги нет в базе')
     len_res = len(results)
 
     # Создание нового окна поверх всех окон
