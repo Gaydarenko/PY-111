@@ -53,7 +53,10 @@ def create_window():
     #
     # entry_title = tk.Entry(width=25)
     # entry_title.grid(row=0, column=1, columnspan=2)
-    # ...
+    # entry_author = tk.Entry(width=25)
+    # entry_author.grid(row=1, column=1, columnspan=2)
+    # entry_genre = tk.Entry(width=25)
+    # entry_genre.grid(row=2, column=1, columnspan=2)
 
     # Создание кнопок поиска и добавления книги, а также привязка к ним функций
     button_search = tk.Button(window, text='Поиск')
@@ -66,7 +69,7 @@ def create_window():
     window.mainloop()
 
 
-def search(title, author, genre):
+def search(title: str, author: str, genre: str):
     """
     Функция выполняет поиск в каталоге по переданным данным.
     :param title: Строка с названием книги
@@ -82,7 +85,8 @@ def search(title, author, genre):
 
     for line in lines:
         line = json.loads(line)     # Нужно не забыть проверить на необходимость!!!
-        target = [title, author, genre]
+        line = list(map(lambda x: x.capitalize(), line))
+        target = list(map(lambda x: x.capitalize(), [title, author, genre]))
         if title == '':
             target[0] = line[0]
         if author == '':
@@ -203,8 +207,6 @@ def search_window(title, author, genre):
     result_genre.insert(0, results[num][2])
     result_genre.configure(state="disabled")
 
-    # insert(results[num])
-
     window.mainloop()
 
 
@@ -264,15 +266,18 @@ def add_book(title, author, genre):
     :param genre: Строка с годом выпуска книги
     :return None
     """
+    target = list(map(lambda x: x.capitalize(), [title, author, genre]))
     if len(title):
         with open('catalog.lib', 'r', encoding='utf-8') as file:
             for line in file.readlines():
-                if json.loads(line) == [title, author, genre]:
+                line = json.loads(line)
+                line = list(map(lambda x: x.capitalize(), line))
+                if line == target:
                     return mb.showinfo('Упс!!!', 'Такая книга уже существует')
         with open('catalog.lib', 'a', encoding='utf-8') as file:
-            json.dump([title, author, genre], file, ensure_ascii=False)
+            json.dump(target, file, ensure_ascii=False)
             file.write(f'\n')
-        mb.showinfo(f"Книга добавлена в базу.", f"Название книги: {title}\nАвтор: {author}\nЖанр: {genre}")
+        mb.showinfo(f"Книга добавлена в базу.", f"Название книги: {target[0]}\nАвтор: {target[1]}\nЖанр: {target[2]}")
 
 
 def del_book(title, author, genre):
@@ -322,11 +327,12 @@ def edit_book(title, author, genre, new_title, new_author, new_genre):
         file = open('catalog.lib', 'w')     # очиска файла
         file.close                          # очиска файла
 
+        target = list(map(lambda x: x.capitalize(), [new_title, new_author, new_genre]))
         with open('catalog.lib', 'a', encoding='utf-8') as file:
             for line in lines:
                 line = json.loads(line)     # Нужно не забыть проверить на необходимость!!!
                 if line == [title, author, genre]:
-                    json.dump([new_title, new_author, new_genre], file, ensure_ascii=False)
+                    json.dump(target, file, ensure_ascii=False)
                     file.write(f'\n')
                 else:
                     json.dump(line, file, ensure_ascii=False)
