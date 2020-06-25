@@ -14,7 +14,7 @@ def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
     print(g.nodes, start_node)
     viewed = [start_node, ]
     queue = [start_node, ]
-    while len(queue):
+    while queue:
         n = queue.pop(0)
         for neighbor in g.neighbors(n):
             if neighbor not in viewed:
