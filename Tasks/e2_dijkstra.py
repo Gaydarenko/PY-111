@@ -19,15 +19,13 @@ def dijkstra_algo(g: nx.DiGraph, starting_node: Hashable) -> Mapping[Hashable, U
     queue = [(starting_node, 0), ]
     while queue:
         target = queue.pop(0)
-        if hist.get(target[0]):
-            continue
-        else:
+        if not hist.get(target[0]):
             hist[target[0]] = ''
-        for node in g.neighbors(target[0]):
-            parent_cost = (target[0], costs[(target[0], node)])
-            if parent_cost[1] + target[1] < res[node][1]:
-                res[node] = (parent_cost[0], parent_cost[1] + target[1])
-                queue.append((node, parent_cost[1] + target[1]))
+            for node in g.neighbors(target[0]):
+                parent_cost = (target[0], costs[(target[0], node)])
+                if parent_cost[1] + target[1] < res[node][1]:
+                    res[node] = (parent_cost[0], parent_cost[1] + target[1])
+                    queue.append((node, parent_cost[1] + target[1]))
     for x in res:
         res[x] = res[x][1]
     return res
