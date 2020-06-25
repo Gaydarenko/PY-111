@@ -26,6 +26,6 @@ def dijkstra_algo(g: nx.DiGraph, starting_node: Hashable) -> Mapping[Hashable, U
                 if parent_cost[1] + target[1] < res[node][1]:
                     res[node] = (parent_cost[0], parent_cost[1] + target[1])
                     queue.append((node, parent_cost[1] + target[1]))
-    for x in res:
-        res[x] = res[x][1]
+
+    res = dict(map(lambda y: (y[0], y[1][1]), res.items()))
     return res
