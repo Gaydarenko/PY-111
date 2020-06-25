@@ -9,14 +9,16 @@ def calculate_paths(shape: (int, int), point: (int, int)) -> int:
     print(shape, point)
     steps = [(0, 0), ]
     step_count = {(0, 0): 1}
+
     def add_step(x, y, p):
         try:
             step_count[(x, y)] += 2 * step_count[p]
-        except:
+        except KeyError:
             steps.append((x, y))
             step_count[(x, y)] = 2 * step_count[p]
+
     while steps:
-        steps.sort()
+        steps.sort(key=lambda x: x[0])
         st = steps.pop(0)
         if st[0] + 1 < shape[0] and st[1] + 2 < shape[1]:
             add_step(st[0] + 1, st[1] + 2, (st[0], st[1]))
