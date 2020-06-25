@@ -17,6 +17,8 @@ import json
 SIZE_X = 400
 SIZE_Y = 150
 
+global num
+
 
 def create_window():
     """
