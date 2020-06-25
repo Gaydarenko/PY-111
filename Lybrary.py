@@ -203,6 +203,13 @@ def search_window(title: str, author: str, genre: str):
 
 
 def edit_window(title, author, genre):
+    """
+    Функция создает окно редактирования книги и заполняет поля ввода по умолчанию (для удобства).
+    :param title: Строка с названием книги
+    :param author: Строка с фамилией (возможно с инициалами) автора книги
+    :param genre: Строка с годом выпуска книги
+    :return: None
+    """
 
     # Создание нового окна поверх всех окон
     window3 = tk.Tk()
@@ -259,7 +266,7 @@ def edit_window(title, author, genre):
     window3.mainloop()
 
 
-def add_book(title, author, genre):
+def add_book(title: str, author: str, genre: str):
     """
     Добавление новой книги в каталог.
     Достаточно указать только наименование (например, утеряна обложка и неизвестен автор)
@@ -281,14 +288,14 @@ def add_book(title, author, genre):
         mb.showinfo(f"Книга добавлена в базу.", f"Название книги: {target[0]}\nАвтор: {target[1]}\nЖанр: {target[2]}")
 
 
-def del_book(title, author, genre):
+def del_book(title: str, author: str, genre: str):
     """
     Функция производит удаление книги путем выгрузки в память содержимого файла и перезаписи этого файла.
     Также производится подсчет количества удаленных книг.
     :param title: Строка с названием книги
     :param author: Строка с фамилией (возможно с инициалами) автора книги
     :param genre: Строка с годом выпуска книги
-    :return: count: Количество удаленных книг
+    :return: None
     """
     count = 0
     if len(title):
@@ -312,7 +319,7 @@ def del_book(title, author, genre):
         mb.showinfo('Упс!!!', 'Что-то пошло не так')
 
 
-def edit_book(title, author, genre, new_title, new_author, new_genre):
+def edit_book(title: str, author: str, genre: str, new_title: str, new_author: str, new_genre: str):
     """
     Функция производит редактирование инфоормации о книге.
     :param title: Строка с неисправленным названием книги
@@ -321,7 +328,7 @@ def edit_book(title, author, genre, new_title, new_author, new_genre):
     :param new_title: Строка с исправленным названием книги
     :param new_author: Строка с исправленной фамилией (возможно с инициалами) автора книги
     :param new_genre: Строка с исправленным годом выпуска книги
-    :return:
+    :return: None
     """
     count = 0
     if len(new_title):
@@ -371,6 +378,4 @@ if __name__ == '__main__':
     # Проверка функции удаления книг
     # del_book("Химия", "Евген", "наука")
 
-    size_x = 400
-    size_y = 150
     create_window()
