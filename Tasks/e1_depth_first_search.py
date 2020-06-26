@@ -33,14 +33,22 @@ def dfs(g: nx.Graph, start_node: Hashable, viewed=None) -> List[Hashable]:
     # my_dfs(g, start_node)
     # return list(viewed.keys())
 
-    if viewed is None:
-        viewed = {}
-    viewed[start_node] = 0
-    for neighbor in g.neighbors(start_node):
-        if viewed.get(neighbor) is None:
-            dfs(g, neighbor, viewed)
-    return list(viewed.keys())
+    # if viewed is None:
+    #     viewed = {}
+    # viewed[start_node] = 0
+    # for neighbor in g.neighbors(start_node):
+    #     if viewed.get(neighbor) is None:
+    #         dfs(g, neighbor, viewed)
+    # return list(viewed.keys())
 
+    if viewed is None:
+        viewed = [start_node, ]
+    for neighbor in g.neighbors(start_node):
+        if neighbor not in viewed:
+            viewed.append(neighbor)
+            dfs(g, neighbor, viewed)
+    else:
+        return viewed
 
 if __name__ == '__main__':
     graph = nx.Graph()
