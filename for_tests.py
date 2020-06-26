@@ -85,27 +85,78 @@ print(G2.adj)
 #     print(counter)
 #     return counter[point[0], point[1]]
 
-import tkinter as tk
-# from tkinter import *
+# import tkinter as tk
+# # from tkinter import *
+#
+# root = tk.Tk()
+#
+# e = tk.Entry(width=20)
+# b = tk.Button(text="Преобразовать")
+# l = tk.Label(bg='black', fg='white', width=20)
+#
+#
+# def strToSortlist(event):
+#     s = e.get()
+#     s = s.split()
+#     s.sort()
+#     l['text'] = ' '.join(s)
+#
+#
+# b.bind('<Button-1>', strToSortlist)
+#
+# e.pack()
+# b.pack()
+# l.pack()
+# root.mainloop()
 
-root = tk.Tk()
+# print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+# fib = [-1 for _ in range(100)]
+#
+# def get_fib(i):
+#     if (i <= 2):
+#         return 1
+#     if (fib[i] != -1):
+#         return fib[i]
+#     fib[i] = get_fib(i - 1) + get_fib(i - 2)
+#     return fib[i]
+#
+# print(get_fib(6))
+# print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-e = tk.Entry(width=20)
-b = tk.Button(text="Преобразовать")
-l = tk.Label(bg='black', fg='white', width=20)
+# def ball(floor):
+#     if floor < 1:
+#         return 0
+#     if floor == 1:
+#         return 1
+#     if floor == 2:
+#         return 2
+#     if floor == 3:
+#         return 4
+#     return ball(floor - 1) + ball(floor - 2) + ball(floor - 3)
+#
+# print(ball(4))
+
+# print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+def pay_stairway(costs, floor):
+    """
+    Для расчета самого дешевого пути до указанной ступеньки
+    :param costs:
+    :param floor:
+    :return:
+    """
+    if floor < 0:
+        return 0
+    return costs[floor - 1] + min(pay_stairway(costs, floor - 1), pay_stairway(costs, floor - 2))
 
 
-def strToSortlist(event):
-    s = e.get()
-    s = s.split()
-    s.sort()
-    l['text'] = ' '.join(s)
+print(pay_stairway([3, -2, 4, 5, 0], 5))
 
 
-b.bind('<Button-1>', strToSortlist)
+def pay_stair_end(costs):
+    if len(costs) == 0:
+        return 0
+    return costs[-1] + min(pay_stair_end(costs[:-1]), pay_stair_end(costs[:-2]))
 
-e.pack()
-b.pack()
-l.pack()
-root.mainloop()
+
+print(pay_stair_end([3, -2, 4, 5, 0]))
 
