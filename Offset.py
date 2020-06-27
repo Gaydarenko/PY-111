@@ -72,6 +72,49 @@ def connect_comp(g: nx.Graph):
     return n
 
 
+# 4)
+"""
+4.	Навигатор на сетке.
+Дана плоская квадратная двумерная сетка (массив), на которой определена стоимость захода в каждую ячейку
+(все стоимости положительные). 
+Необходимо найти путь минимальной стоимости из заданной ячейки в заданную ячейку и вывести этот путь.
+"""
+# Исхожу из предположения что массив представляет собой список списков: [[2,5,3,4], [1,2,43,1], ...]
+
+
+def dijkstra(roster, start, finish):
+    length = len(roster)
+    width = len(roster[0])
+    cells = [(i, j) for i in range(length) for j in range(width)]
+    hist = {}
+    costs = {cell: roster[cell[0]][cell[1]] for cell in cells}
+    res = {cell: ('', float('inf')) for cell in cells}
+    res[start] = ('', 0)
+    queue = [(start, 0), ]
+    while queue:
+        target = queue.pop(0)
+        if hist.get(target[0]) is None:
+            hist[target[0]] = ''
+        # for node in g.neighbors(target[0]):
+        next_cells = []
+        if start[0] - 1 >= 0:
+            next_cells.append((start[0] - 1, start[1]))
+        if start[0] + 1 < length:
+            next_cells.append((start[0] + 1, start[1]))
+        if start[1] - 1 >= 0:
+            next_cells.append((start[0], start[1] - 1))
+        if start[1] + 1 < width:
+            next_cells.append((start[0], start[1] + 1))
+        for cell in next_cells:
+            parent_cost = (target[0], costs[(target[0], cell)])
+            if parent_cost[1] + target[1] < res[cell][1]:
+                res[cell] = (parent_cost[0], parent_cost[1] + target[1])
+                queue.append((cell, parent_cost[1] + target[1]))
+
+    return res[finish]
+
+
+
 # 5)
 """
 5.	Задача консенсуса DNA ридов
