@@ -1,3 +1,5 @@
+import networkx as nx
+
 # 1)
 """
 Оценить асимптотическую сложность приведенного ниже алгоритма:
@@ -36,3 +38,15 @@ def counting(N: int, k: int):
     return l.pop()
 
 # 3)
+
+def connect_comp(g: nx.Graph):
+    """
+    Функция происзводит посчет компонент связности.
+    :param g: граф
+    :return: коичество компонент связности
+    """
+    # nodes = frozenset(g.nodes())
+    # for node in nodes:
+    #     neighbors = frozenset(g.neighbors(node))
+    #     nodes = nodes ^ neighbors
+    # return
