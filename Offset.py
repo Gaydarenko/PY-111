@@ -1,4 +1,5 @@
 import networkx as nx
+import collections
 
 # 1)
 """
@@ -110,3 +111,11 @@ def sum_time(queue: list) -> bool:
 # А сортировка слиянием обладает свойством устойчивости.
 #
 # Но для данного случая я бы выбрал сортировку подсчётом (counting sort)
+def count_sort(block):
+    count_buffer = collections.defaultdict(int)
+    res = []
+    for elem in block:
+        count_buffer[elem] += 1
+    for num in range(13, 26):
+        res.extend([num, ] * count_buffer[num])
+    return res
