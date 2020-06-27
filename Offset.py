@@ -130,6 +130,7 @@ def sum_time(queue: list) -> bool:
     :param queue: список заявок
     :return: bool
     """
+    queue.sort()
     for i in range(len(queue) - 1):
         if queue[i][1] > queue[i + 1][0]:
             return False
