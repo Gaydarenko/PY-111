@@ -41,12 +41,29 @@ def counting(N: int, k: int):
 
 def connect_comp(g: nx.Graph):
     """
-    Функция происзводит посчет компонент связности.
+    Функция происзводит посчет ко   мпонент связности.
     :param g: граф
     :return: коичество компонент связности
     """
-    # nodes = frozenset(g.nodes())
-    # for node in nodes:
-    #     neighbors = frozenset(g.neighbors(node))
-    #     nodes = nodes ^ neighbors
-    # return
+    nodes = set(g.nodes())
+    n = 0
+
+    while nodes:
+        start = nodes.pop()
+        queue = [start, ]
+        viewed = [start, ]
+        res = set()
+        while len(queue):
+            n = queue.pop()
+            res.add(n)
+            for neighbor in g.neighbors(n):
+                if neighbor not in viewed:
+                    queue.append(neighbor)
+                    viewed.append(neighbor)
+
+        nodes -= res
+        n += 1
+
+    return n
+
+# 4)
