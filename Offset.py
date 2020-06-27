@@ -6,3 +6,4 @@ while a > 0:            # O(n * (log по основанию 1.7 от n))
     a = a // 1.7        # O(1)
 out.merge_sort()        # O(nlog(n))
 
+2)
