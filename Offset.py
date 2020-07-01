@@ -14,6 +14,7 @@ import collections
 # out.merge_sort()        # O(nlog(n))
 # Итоговая сложность = max (т.к. действия последовательны - цикл рассматриваю цельным объектом) - O(nlogn)
 
+
 # 2)
 """
 Дано N человек, считалка из K слогов.
@@ -25,28 +26,44 @@ import collections
 
 
 def counting(n: int, k: int):
-    q = [i for i in range(n)]
-    i = k
+    """
+    Функция реализует детскую считалку. Вычисляет последнего оставшегося человека.
+    :param n: Количество человек
+    :param k: Количество слогов в считалочке
+    :return: Номер оставшегося чеорвека
+    """
+
+    q = [i for i in range(1, n + 1)]
+    i = 0
+
+    if n < 1:
+        return None
+    elif n == 1:
+        return n
+
+    while n > k:
+        i += k - 1
+        if i >= n:
+            i -= n
+        q.pop(i)
+        n -= 1
+
     while n > 1:
-        if n > i:
-            q.pop(i)
-            n -= 1
-            while n > i:
-                i += k - 1
-                q.pop(i)
-                n -= 1
+        i += k % n - 1
+        if i >= n:
             i -= n
-        else:
-            i -= n
-    return q.pop()
+        q.pop(i)
+        if i == -1:
+            i = 0
+        n -= 1
+
+    return q
 
 
 # 3)
-
-
 def connect_comp(g: nx.Graph):
     """
-    Функция происзводит посчет ко   мпонент связности.
+    Функция происзводит посчет компонент связности.
     :param g: граф
     :return: коичество компонент связности
     """
@@ -95,7 +112,6 @@ def dijkstra(roster, start, finish):
         target = queue.pop(0)
         if hist.get(target[0]) is None:
             hist[target[0]] = ''
-        # for node in g.neighbors(target[0]):
         next_cells = []
         if start[0] - 1 >= 0:
             next_cells.append((start[0] - 1, start[1]))
@@ -112,7 +128,6 @@ def dijkstra(roster, start, finish):
                 queue.append((cell, parent_cost[1] + target[1]))
 
     return res[finish]
-
 
 
 # 5)
@@ -207,3 +222,15 @@ def count_sort(block: list) -> list:
     for num in range(13, 26):
         res.extend([num, ] * count_buffer[num])
     return res
+
+
+if __name__ == '__main__':
+    print(counting(5, 1))
+    print(counting(5, 2))
+    print(counting(5, 3))
+    print(counting(5, 4))
+    print(counting(5, 5))
+    print(counting(5, 6))
+    print(counting(5, 7))
+    print(counting(10, 12))
+    print(counting(8, 11))
